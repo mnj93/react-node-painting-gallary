@@ -1,0 +1,43 @@
+
+  #snackbar {
+    /* visibility: hidden; */
+    min-width:100%;       
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    left: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0px;
+    font-size: 20px;
+  }
+
+  #snackbar .error{
+   background-color: #e00000!important;
+   padding: 22px;
+ }
+ #snackbar .warning{
+   background-color: #d87a1a!important;
+   padding: 22px;
+ }
+ #snackbar .success{
+   background-color: #66b12d!important;
+   padding: 22px;
+ }
+
+ /* #snackbar.show {
+  visibility: visible;
+  -webkit-animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s;
+  animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s;
+} */
+.fadeout, .show {
+    max-height: 0;            
+    overflow-y: hidden;
+    -webkit-transition: max-height 0.5s ease-in-out;
+    -moz-transition: max-height 0.5s ease-in-out;
+    -o-transition: max-height 0.5s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
+}
+.show {            
+    max-height: 80px ;                    
+}  

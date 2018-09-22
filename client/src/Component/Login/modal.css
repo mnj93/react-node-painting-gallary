@@ -1,0 +1,9 @@
+
+.modal.fade{
+    transform: translateY('-100%');
+    transition: transform 400ms ease-in
+}
+.modal.fade.in{
+    transform: translateY('0%');
+    transition: transform 400ms ease-in
+}
