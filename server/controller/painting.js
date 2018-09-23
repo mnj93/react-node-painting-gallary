@@ -3,7 +3,7 @@ const formatter = require('../helpers/responseFormatter');
 
 exports.GET_PAINTINGS=(req,res,next) => {
     if(req.query.q){
-        const regex = new RegExp(req.query.q);
+        const regex = new RegExp(escape(req.query.q));
         Painting.find({is_active : true,painting_name : {$regex : regex , $options : 'i'}}).then((results)=>{
             const response = formatter.FormatResponse('true','Paintings fetched.',results);
             return res.status(200).json(response);

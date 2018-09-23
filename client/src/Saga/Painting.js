@@ -1,5 +1,5 @@
 import * as Types from '../Constants/Painting';
-import {takeLatest,call,put} from 'redux-saga/effects';
+import {takeEvery,takeLatest,call,put} from 'redux-saga/effects';
 import * as Service from '../Service/Painting';
 import * as Action from '../Actions/Painting';
 import history from '../Config/history';
@@ -104,7 +104,7 @@ function* DeletePaintingSaga(action){
 }
 export function* PaintingWatcher(){
     yield takeLatest(Types.FETCH_PAINTING_REQUEST,FetchPaintings);
-    yield takeLatest(Types.LIKE_PAINTING,LikePaintings);
+    yield takeEvery(Types.LIKE_PAINTING,LikePaintings);
     yield takeLatest(Types.FETCH_PAINTING_DETAILS_REQUEST,FetchPaintingDetails);
     yield takeLatest(Types.UPDATE_PAINTING_DETAILS_REQUEST,UpdatePaintingSaga);
     yield takeLatest(Types.DELETE_PAINTING_DETAILS_REQUEST,DeletePaintingSaga);

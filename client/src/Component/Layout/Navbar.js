@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { UserLogoutRequest } from '../../Actions/Auth';
 import LoginModal from '../Login/LoginModal';
+import {withRouter} from 'react-router';
 
 class Navbar extends React.Component{
     constructor(props){
@@ -27,6 +28,7 @@ class Navbar extends React.Component{
         });
     }
     render(){
+        console.log('location : ',this.props.location.pathname)
         return(
             <div id="home">
             <nav id="nav" className="navbar navbar-inverse">
@@ -46,6 +48,9 @@ class Navbar extends React.Component{
                     <NavItem path="/" name="Home" /> 
                     {
                         this.props.isAuthenticated && <NavItem path="dashboard" name="Dashboard" />
+                    }
+                    {
+                         this.props.isAuthenticated && this.props.location.pathname.toLowerCase() ==='/dashboard' && <NavItem path="profiles" name="Users" />
                     }
                     {
                         this.props.isAuthenticated ? <NavItem onClick={(e)=>this.handleLogout(e)} path="logout" name="Logout" /> : 
@@ -82,4 +87,4 @@ function mapStateToProps(state){
     }
 }
 
-  export default connect(mapStateToProps,{logout : UserLogoutRequest})(Navbar);
+  export default withRouter(connect(mapStateToProps,{logout : UserLogoutRequest})(Navbar));
