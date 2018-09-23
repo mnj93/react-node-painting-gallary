@@ -6,7 +6,7 @@ const PaintingSchema = new Schema({
     artist_id : {type:Schema.Types.ObjectId,ref:'artist'},
     painting_desc:String,
     likes : Number,
-    liked_by : [String],
+    liked_by : [{type:String, lowercase : true}],
     image_url : String,
     is_active :{type:Boolean,default:true}
 },{

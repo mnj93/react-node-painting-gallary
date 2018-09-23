@@ -37,8 +37,8 @@ exports.GET_PAINTING_DETAILS=(req,res,next)=>{
 exports.ADD_NEW_LIKE = (req,res,next)=>{
     Painting.findOne({_id : req.params.painting_id}).then((painting)=>{
         if(painting){
-            console.log(req.user_name);
-            console.log(painting.liked_by.indexOf(req.user_name));
+            // console.log(req.user_name);
+            // console.log(painting.liked_by.indexOf(req.user_name));
             if(painting.liked_by.indexOf(req.user_name) < 0){
                  painting.addLike(req.user_name).then((result)=>{
                     if(result){
