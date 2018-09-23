@@ -56,7 +56,7 @@ class LoginForm extends React.Component{
             <form onSubmit={this.onSubmit}>              
                        
                 {
-                    errors.message &&  <div className="alert alert-danger" role="alert">{errors.message}</div>                                            
+                    this.props.error &&  <div className="alert alert-danger" role="alert">{this.props.error}</div>                                            
                 }               
                 <div className={errors.username ? "form-group has-error":"form-group"}>
                     <label htmlFor="username">Username</label>

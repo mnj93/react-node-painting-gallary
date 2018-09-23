@@ -26,7 +26,7 @@ class PaintingSection extends React.Component{
             this.setState({isModalOpen:true});
         }
         else{
-            console.log('painting id :',painting_id)
+            //console.log('painting id :',painting_id)
             this.props.likePainting(painting_id);
         }
     }
@@ -63,7 +63,7 @@ class PaintingSection extends React.Component{
             let username='';
             if(localStorage.token){
                 const decoded = jwt_decode(localStorage.getItem('token'));
-                console.log('decoded : ',decoded);
+                //console.log('decoded : ',decoded);
                 username = decoded.user_name;
             }
             this.props.fetchPaintingSuccess(this.state.PaintingsList,username);
@@ -73,7 +73,7 @@ class PaintingSection extends React.Component{
         let username='';
         if(localStorage.token){
             const decoded = jwt_decode(localStorage.getItem('token'));
-            console.log('decoded : ',decoded);
+            //console.log('decoded : ',decoded);
             username = decoded.user_name;
         }
         this.props.fetchPainting(username);

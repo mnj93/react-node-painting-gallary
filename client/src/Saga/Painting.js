@@ -6,7 +6,7 @@ import history from '../Config/history';
 
 export function* FetchPaintings(action){
     try{
-        const response = yield call(Service.FetchPaintings);        
+        const response = yield call(Service.FetchPaintings,action.query);        
         yield put(Action.FetchPaintingSuccess(response.data.data,action.username));
     }
     catch(error){

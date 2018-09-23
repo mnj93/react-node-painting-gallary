@@ -8,7 +8,7 @@ module.exports  = (app) => {
     });
     app.use('/auth',authRoutes);
     app.use('/paintings',paintingRoutes);
-    app.use('/*',(req,res)=>{
-        res.status(404).json(formatter.FormatResponse('false','Resource not found.'));
-    });  
+    // app.use('/*',(req,res)=>{
+    //     res.status(404).json(formatter.FormatResponse('false','Resource not found.'));
+    // });  
 }   

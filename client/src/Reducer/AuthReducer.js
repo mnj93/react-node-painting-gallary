@@ -11,7 +11,8 @@ export default function Auth(state={},action){
         return{
             ...state,
             loading : false,
-            user : action.user
+            user : action.user,
+            error:''
         }
         case Types.REQUEST_LOGIN_ERROR : 
         return{

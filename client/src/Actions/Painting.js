@@ -22,10 +22,11 @@ export const LikePaintingError=(error)=>{
     }
 }
 
-export const FetchPaintingRequest=(username)=>{
+export const FetchPaintingRequest=(username,query)=>{
     return{
         type:Types.FETCH_PAINTING_REQUEST   ,
-        username 
+        username ,
+        query
     }
 }
 export const FetchPaintingSuccess=(paintings,username)=>{

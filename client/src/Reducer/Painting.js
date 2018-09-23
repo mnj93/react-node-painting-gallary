@@ -19,7 +19,7 @@ function Painting(state={},action){
         case Types.FETCH_PAINTING_REQUEST : 
         return {
             ...state,
-            loading : true,            
+            loading :action.query? false : true,            
         }
         case Types.FETCH_PAINTING_SUCCESS:
         const paintings = action.paintings.map((el)=>{

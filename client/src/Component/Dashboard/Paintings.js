@@ -1,10 +1,9 @@
 import React from 'react';
-import PaintingComponent from './SinglePainting';
 import { FetchPaintingRequest, DeletePaintingRequest } from '../../Actions/Painting';
 import {connect} from 'react-redux';
 import history from '../../Config/history';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import { LoadingDiv, ErrorDiv } from '../Others/LoadingDiv';
+import MainComponent from './MainContent';
 
 class PaintingList extends React.Component{
     constructor(props){
@@ -12,7 +11,8 @@ class PaintingList extends React.Component{
         this.state = {
             showConfirmModal : false,
             deleting_id : 0,
-            painting_list:[]
+            painting_list:[],
+            searchText :''
         }
     }
     componentDidMount(){
@@ -57,43 +57,57 @@ class PaintingList extends React.Component{
             })
         }
     }  
-    render(){
-        if(this.props.isLoading){
-            return(
-                <LoadingDiv />
-            )
-        }
-        else if(this.props.error){
-            return <ErrorDiv header="Error Occured!!" body={this.props.error} />
-        }
-        else{
-            return(
-                <div>
-                    {
-                        this.state.painting_list.length > 0 ? 
-                        this.state.painting_list.map((el,index)=>{                    
-                           return <PaintingComponent onDelete={(e,painting_id)=>this.handleOnDelete(e,painting_id)}
-                           onEdit={(e,painting_id)=>this.editPainting(e,painting_id)} painting={el} key={index} />
-                        }) : <div className="container text-center" style={{marginLeft:'auto',marginRight:'auto',marginTop:'5%'}}><h3>No Data Available!</h3></div>
-                    }
-                    {
-                        this.state.showConfirmModal && 
-                        <ConfirmModal modal_title="Are you sure you want to delete this painting ?"
-                            modal_body="If you're sure that you want to delete this painting then please click on confirm button, you can not undo this action once done."
-                            confirm_text={""+'Confirm'}
-                            cancel_text={""+'Cancel'}
-                            onConfirm={(e)=>this.confirmDelete(e)}
-                            onCancel = {(e)=>this.onCancel(e)}
-                            isOpen={this.state.showConfirmModal}
-                            showLoader = {this.props.delete_loader}                        
-                        />
-                    }
-                </div>
-            )
-        }
-      
+    handleSearch=(e)=>{
+        this.setState({
+            searchText : e.target.value
+        })
+        this.props.fetchPaintings('',e.target.value);
+    }
+    render(){               
+       return(
+           <div>
+            <div className="row">
+            <HeaderComponent searchText={this.state.searchText} onSearch={(e)=>this.handleSearch(e)} />
+            </div>   
+            <hr />
+            <MainComponent 
+              isLoading ={this.props.isLoading}
+              error ={this.props.error}
+              painting_list={this.state.painting_list}
+              handleOnDelete={(e,painting_id)=>this.handleOnDelete(e,painting_id)}
+              editPainting={(e,painting_id)=>this.editPainting(e,painting_id)}
+             />
+            {
+                this.state.showConfirmModal && 
+                <ConfirmModal modal_title="Are you sure you want to delete this painting ?"
+                    modal_body="If you're sure that you want to delete this painting then please click on confirm button, you can not undo this action once done."
+                    confirm_text={""+'Confirm'}
+                    cancel_text={""+'Cancel'}
+                    onConfirm={(e)=>this.confirmDelete(e)}
+                    onCancel = {(e)=>this.onCancel(e)}
+                    isOpen={this.state.showConfirmModal}
+                    showLoader = {this.props.delete_loader}                        
+                />
+            }
+        </div>
+       )        
     }
 }
+
+const HeaderComponent=(props)=>{
+    return(
+        <div className="col-md-12">
+        <div className="col-md-8"></div>
+        <div className="col-md-4">
+        <div class="input-group">
+            <input type="text" value={props.searchText} onChange={(e)=>props.onSearch(e)} class="form-control" placeholder="Type here for search.." aria-describedby="basic-addon2" />
+            <span class="input-group-addon" id="basic-addon2"><i className="fas fa-search"></i></span>
+        </div>
+        </div>
+        </div>
+    )
+}
+
 function mapStateToProps(state){
     return{
         isLoading : state.Paintings.Painting.loading,

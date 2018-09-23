@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { API_URL } from '../Config/config';
 
-export const FetchPaintings=()=>{
-    return axios.get(API_URL+'/paintings');
+export const FetchPaintings=(q)=>{
+    if(q){
+        return axios.get(API_URL+'/paintings?q='+q);
+    }
+    else{
+        return axios.get(API_URL+'/paintings');
+    }
 }
 export const LikePainting=(painting_id)=>{
     return axios.post(API_URL+'/paintings/'+painting_id+'/like');

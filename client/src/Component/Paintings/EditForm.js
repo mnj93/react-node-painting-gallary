@@ -135,7 +135,7 @@ class EditForm extends React.Component{
                 }     
                 <div className="col-md-4">
                 <div className="thumbnail">
-                    <img  onClick={this.handleImageClick} src={data.image_url} style={{width:'100%',height:'auto'}} alt="Painting Image" />
+                    <img title="Click to upload cover image" onClick={this.handleImageClick} src={data.image_url} style={{width:'100%',height:'auto',cursor:'pointer'}} alt="Painting Image" />
                     <input type="file" onChange={(e)=>this.handleFileChange(e)} id="cover_image" name="file_upload" accept=".jpg,.jpeg,.png" style={{visibility:'hidden'}} />
                 </div>                   
                 </div>    

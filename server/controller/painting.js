@@ -2,12 +2,23 @@ const Painting = require('../models/paintings');
 const formatter = require('../helpers/responseFormatter');
 
 exports.GET_PAINTINGS=(req,res,next) => {
-    Painting.find({is_active : true}).then((results)=>{
-        const response = formatter.FormatResponse('true','Paintings fetched.',results);
-        return res.status(200).json(response);
-    }).catch((err)=>{
-        return next(err);
-    });
+    if(req.query.q){
+        const regex = new RegExp(req.query.q);
+        Painting.find({is_active : true,painting_name : {$regex : regex , $options : 'i'}}).then((results)=>{
+            const response = formatter.FormatResponse('true','Paintings fetched.',results);
+            return res.status(200).json(response);
+        }).catch((err)=>{
+            return next(err);
+        });
+    }
+    else{
+        Painting.find({is_active : true}).then((results)=>{
+            const response = formatter.FormatResponse('true','Paintings fetched.',results);
+            return res.status(200).json(response);
+        }).catch((err)=>{
+            return next(err);
+        });
+    }   
 }
 exports.GET_PAINTING_DETAILS=(req,res,next)=>{
     Painting.findOne({_id:req.params.painting_id,is_active : true}).then((painting)=>{
@@ -104,3 +115,4 @@ exports.DELETE_PAINTING = (req,res,next)=>{
         return next(err);
     })
 }
+
