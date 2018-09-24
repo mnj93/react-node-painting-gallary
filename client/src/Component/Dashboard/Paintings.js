@@ -5,6 +5,7 @@ import history from '../../Config/history';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import MainComponent from './MainContent';
 
+let timer;
 class PaintingList extends React.Component{
     constructor(props){
         super(props);
@@ -13,7 +14,7 @@ class PaintingList extends React.Component{
             deleting_id : 0,
             painting_list:[],
             searchText :''
-        }
+        }        
     }
     componentDidMount(){
         this.props.fetchPaintings('')
@@ -57,11 +58,15 @@ class PaintingList extends React.Component{
             })
         }
     }  
+    
     handleSearch=(e)=>{
         this.setState({
             searchText : e.target.value
-        })
-        this.props.fetchPaintings('',e.target.value);
+        });
+        timer && clearTimeout(timer);
+        timer = setTimeout((e) => {
+            this.props.fetchPaintings('',this.state.searchText)
+        }, 300);
     }
     render(){               
        return(
