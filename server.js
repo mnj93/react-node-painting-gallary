@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser  =require('body-parser');
 require('dotenv').config();
 const app = express();
+app.disable('x-powered-by');
 const db    = require('./server/config/db');
 const path = require('path');
+
 app.use(bodyParser.json());
 app.use(function (req, res, next) {  
     res.header("Access-Control-Allow-Origin", "*");  
@@ -25,6 +27,7 @@ const port = process.env.PORT || 5001;
 app.listen(port ,()=>{
     console.log('Server started on port ',port);
 })
+
 require('./routes')(app);
 
 app.get('/*', function (req, res) {
